@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Organization Database</title>
+<title>Database for Council of Reconciliation</title>
 
 <style>
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #111111;
+  font-family: Arial;
+  background: #111;
   color: white;
 }
 
@@ -18,87 +18,85 @@ header {
   color: black;
   padding: 20px;
   text-align: center;
-  font-size: 28px;
+  font-size: 26px;
   font-weight: bold;
 }
 
-/* NAVBAR */
+/* NAV */
 nav {
-  display: flex;
+  display: none;
   justify-content: center;
-  gap: 15px;
-  padding: 15px;
+  gap: 10px;
+  padding: 10px;
   background: #1a1a1a;
-  border-bottom: 2px solid #facc15;
 }
 
 nav button {
   background: #facc15;
   border: none;
-  padding: 10px 16px;
-  border-radius: 10px;
-  color: black;
+  padding: 10px;
+  border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
-  transition: 0.2s;
 }
 
-nav button:hover {
-  background: #fde047;
-  transform: scale(1.05);
-}
-
-/* CONTENT */
+/* CONTAINER */
 .container {
-  padding: 30px;
+  padding: 25px;
   max-width: 900px;
   margin: auto;
 }
 
-.section {
-  display: none;
-}
-
-.active {
-  display: block;
-}
+.section { display: none; }
+.active { display: block; }
 
 .box {
   background: #1a1a1a;
   padding: 15px;
-  border-radius: 12px;
   margin-top: 10px;
   border-left: 5px solid #facc15;
+  border-radius: 10px;
 }
 
-h2 {
-  color: #facc15;
+/* LOGIN */
+#login {
+  text-align: center;
+  margin-top: 100px;
 }
 
-h3 {
-  margin-top: 20px;
+input {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 8px;
+  border: none;
 }
 
-a {
-  color: #facc15;
-  font-weight: bold;
-}
-
-a:hover {
-  text-decoration: underline;
+button {
+  padding: 10px 15px;
 }
 </style>
 </head>
 
 <body>
 
-<header>Organization Database</header>
+<header>Database for Council of Reconciliation</header>
 
-<nav>
-  <button onclick="showSection('home')">Home</button>
-  <button onclick="showSection('ambassadors')">Ambassadors</button>
-  <button onclick="showSection('investigators')">Investigators</button>
-  <button onclick="showSection('security')">Security</button>
+<!-- LOGIN -->
+<div id="login">
+  <h2>Login</h2>
+  <input id="user" placeholder="Username"><br>
+  <input id="pass" type="password" placeholder="Password"><br>
+  <button onclick="login()">Enter</button>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <button onclick="show('home')">Home</button>
+  <button onclick="show('ambassadors')">Ambassadors</button>
+  <button onclick="show('investigators')">Investigators</button>
+  <button onclick="show('security')">Temple Security Force</button>
+  <button onclick="show('trials')">Trials</button>
+  <button onclick="show('admin')">Admin</button>
 </nav>
 
 <div class="container">
@@ -106,95 +104,133 @@ a:hover {
 <!-- HOME -->
 <div id="home" class="section active">
   <h2>Dashboard</h2>
-  <div class="box">
-    <p>Welcome to the Organization Database System.</p>
-    <p>Select a division above to view information.</p>
-  </div>
+  <div class="box">System Access Granted</div>
 </div>
 
 <!-- AMBASSADORS -->
 <div id="ambassadors" class="section">
   <h2>Ambassadors</h2>
-
-  <h3>Duties</h3>
-  <div class="box">
-    <p>Represent the organization</p>
-    <p>Handle external relations</p>
-    <p>Maintain diplomacy</p>
-  </div>
-
-  <h3>Council</h3>
-  <div class="box">
-    <p>Axronomore — Head Ambassador</p>
-  </div>
-
-  <h3>Hierarchy</h3>
-  <div class="box">
-    <p>Head Ambassador</p>
-    <p>Ambassador Member</p>
-  </div>
+  <div class="box">Axronomore — Head Ambassador</div>
 </div>
 
 <!-- INVESTIGATORS -->
 <div id="investigators" class="section">
   <h2>Investigators</h2>
 
-  <h3>Duties</h3>
   <div class="box">
-    <p>Investigating cases</p>
-    <p>Gathering evidence</p>
-    <p>Mediating disputes</p>
-    <p>Presenting truthful reports to the Council</p>
-    <p>Must read and understand the Investigator Handbook</p>
+    marabo13 — Head Investigator<br>
+    Thommpt3 — Deputy Investigator
   </div>
 
-  <h3>Council</h3>
   <div class="box">
-    <p>marabo13 — Head Investigator</p>
-    <p>Thommpt3 — Deputy Investigator</p>
+    Duties:<br>
+    - Investigating cases<br>
+    - Gathering evidence<br>
+    - Mediating disputes<br>
+    - Presenting truthful reports<br>
   </div>
 
-  <h3>Hierarchy</h3>
-  <div class="box">
-    <p>Head Investigator</p>
-    <p>Deputy Investigator</p>
-    <p>Investigator Member</p>
-  </div>
-
-  <h3>Handbook</h3>
   <div class="box">
     <a href="https://docs.google.com/document/d/1NROOkeioZ5jtGFuzXBNy6eF8ansm8RsXKs3odT2GxoY/edit?usp=sharing" target="_blank">
-      Open Jedi Investigator Handbook
+      Investigator Handbook
     </a>
   </div>
 </div>
 
 <!-- SECURITY -->
 <div id="security" class="section">
-  <h2>Security Division</h2>
+  <h2>Temple Security Force</h2>
+  <div class="box">jaketstone34 — Chief Of Security</div>
+</div>
 
-  <h3>Leadership</h3>
+<!-- TRIALS -->
+<div id="trials" class="section">
+  <h2>Trial Cases</h2>
+
+  <div id="trialList"></div>
+
   <div class="box">
-    <p>jaketstone34 — Chief Of Security</p>
+    <h3>Add Trial</h3>
+    <input id="trialName" placeholder="Case name">
+    <input id="trialLink" placeholder="Document link">
+    <button onclick="addTrial()">Add</button>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div id="admin" class="section">
+  <h2>Admin Panel</h2>
+
+  <div class="box">
+    <h3>Add Member</h3>
+    <input id="memberName" placeholder="Name">
+    <input id="memberRole" placeholder="Role">
+    <button onclick="addMember()">Add</button>
   </div>
 
-  <h3>Responsibilities</h3>
-  <div class="box">
-    <p>Maintain internal security</p>
-    <p>Protect council members</p>
-    <p>Respond to threats</p>
-  </div>
+  <div id="members"></div>
 </div>
 
 </div>
 
 <script>
-function showSection(id) {
-  document.querySelectorAll('.section').forEach(sec => {
-    sec.classList.remove('active');
-  });
+function login() {
+  const u = document.getElementById('user').value;
+  const p = document.getElementById('pass').value;
+
+  if (u === "admin" && p === "1234") {
+    document.getElementById('login').style.display = "none";
+    document.getElementById('nav').style.display = "flex";
+    show('home');
+  } else {
+    alert("Wrong login");
+  }
+}
+
+function show(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
+
+/* MEMBERS */
+function addMember() {
+  let name = document.getElementById('memberName').value;
+  let role = document.getElementById('memberRole').value;
+
+  let members = JSON.parse(localStorage.getItem('members')) || [];
+  members.push({name, role});
+  localStorage.setItem('members', JSON.stringify(members));
+
+  loadMembers();
+}
+
+function loadMembers() {
+  let members = JSON.parse(localStorage.getItem('members')) || [];
+  document.getElementById('members').innerHTML =
+    members.map(m => `<div class="box">${m.name} — ${m.role}</div>`).join('');
+}
+
+loadMembers();
+
+/* TRIALS */
+function addTrial() {
+  let name = document.getElementById('trialName').value;
+  let link = document.getElementById('trialLink').value;
+
+  let trials = JSON.parse(localStorage.getItem('trials')) || [];
+  trials.push({name, link});
+  localStorage.setItem('trials', JSON.stringify(trials));
+
+  loadTrials();
+}
+
+function loadTrials() {
+  let trials = JSON.parse(localStorage.getItem('trials')) || [];
+  document.getElementById('trialList').innerHTML =
+    trials.map(t => `<div class="box"><a href="${t.link}" target="_blank">${t.name}</a></div>`).join('');
+}
+
+loadTrials();
 </script>
 
 </body>
