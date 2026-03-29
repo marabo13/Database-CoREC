@@ -1,235 +1,353 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Database for Council of Reconciliation</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Council of Reconciliation | Secure Database</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
-<style>
-body {
-  margin: 0;
-  font-family: Arial;
-  background: #111;
-  color: white;
-}
+    <style>
+        :root {
+            --primary: #facc15;
+            --primary-hover: #eab308;
+            --bg-dark: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+            --accent: #38bdf8;
+        }
 
-/* HEADER */
-header {
-  background: #facc15;
-  color: black;
-  padding: 20px;
-  text-align: center;
-  font-size: 26px;
-  font-weight: bold;
-}
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at top right, #1e293b, #0f172a);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
 
-/* NAV */
-nav {
-  display: none;
-  justify-content: center;
-  gap: 10px;
-  padding: 10px;
-  background: #1a1a1a;
-}
+        /* HEADER */
+        header {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(250, 204, 21, 0.2);
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--primary);
+            text-transform: uppercase;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-nav button {
-  background: #facc15;
-  border: none;
-  padding: 10px;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-}
+        /* NAV */
+        nav {
+            display: none;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+        }
 
-/* CONTAINER */
-.container {
-  padding: 25px;
-  max-width: 900px;
-  margin: auto;
-}
+        nav button {
+            background: transparent;
+            color: var(--text-dim);
+            border: 1px solid transparent;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
 
-.section { display: none; }
-.active { display: block; }
+        nav button:hover {
+            color: var(--primary);
+            background: rgba(250, 204, 21, 0.1);
+        }
 
-.box {
-  background: #1a1a1a;
-  padding: 15px;
-  margin-top: 10px;
-  border-left: 5px solid #facc15;
-  border-radius: 10px;
-}
+        nav button.active-btn {
+            background: var(--primary);
+            color: #000;
+        }
 
-/* LOGIN */
-#login {
-  text-align: center;
-  margin-top: 100px;
-}
+        /* CONTAINER & SECTIONS */
+        .container {
+            padding: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            flex-grow: 1;
+            width: 90%;
+        }
 
-input {
-  padding: 10px;
-  margin: 10px;
-  border-radius: 8px;
-  border: none;
-}
+        .section { 
+            display: none; 
+            animation: fadeIn 0.4s ease-out;
+        }
 
-button {
-  padding: 10px 15px;
-}
-</style>
+        .active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 { border-left: 4px solid var(--primary); padding-left: 15px; margin-bottom: 1.5rem; }
+
+        /* CARDS */
+        .box {
+            background: var(--card-bg);
+            backdrop-filter: blur(5px);
+            padding: 20px;
+            margin-bottom: 1rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            line-height: 1.6;
+        }
+
+        .box h3 { margin-top: 0; color: var(--primary); font-size: 1.1rem; }
+
+        /* INPUTS & BUTTONS */
+        input {
+            background: #0f172a;
+            border: 1px solid #334155;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 6px;
+            color: white;
+            width: calc(100% - 26px);
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.2);
+        }
+
+        .action-btn {
+            background: var(--primary);
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .action-btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        /* LOGIN */
+        #login {
+            max-width: 400px;
+            margin: 100px auto;
+            text-align: center;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 15px;
+            border: 1px solid rgba(250, 204, 21, 0.3);
+        }
+
+        a { color: var(--accent); text-decoration: none; font-weight: 600; }
+        a:hover { text-decoration: underline; }
+
+        .member-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding: 10px 0;
+        }
+
+    </style>
 </head>
 
 <body>
 
-<header>Database for Council of Reconciliation</header>
+<header>Council of Reconciliation</header>
 
-<!-- LOGIN -->
 <div id="login">
-  <h2>Login</h2>
-  <input id="user" placeholder="Username"><br>
-  <input id="pass" type="password" placeholder="Password"><br>
-  <button onclick="login()">Enter</button>
+    <div style="font-size: 3rem; margin-bottom: 1rem;">⚖️</div>
+    <h2>Authorized Access Only</h2>
+    <input id="user" placeholder="Username">
+    <input id="pass" type="password" placeholder="Password">
+    <button class="action-btn" style="width: 100%; margin-top: 10px;" onclick="login()">Access System</button>
 </div>
 
-<!-- NAV -->
 <nav id="nav">
-  <button onclick="show('home')">Home</button>
-  <button onclick="show('ambassadors')">Ambassadors</button>
-  <button onclick="show('investigators')">Investigators</button>
-  <button onclick="show('security')">Temple Security Force</button>
-  <button onclick="show('trials')">Trials</button>
-  <button onclick="show('admin')">Admin</button>
+    <button id="btn-home" onclick="show('home', 'btn-home')">Dashboard</button>
+    <button id="btn-amb" onclick="show('ambassadors', 'btn-amb')">Ambassadors</button>
+    <button id="btn-inv" onclick="show('investigators', 'btn-inv')">Investigators</button>
+    <button id="btn-sec" onclick="show('security', 'btn-sec')">Security Force</button>
+    <button id="btn-tri" onclick="show('trials', 'btn-tri')">Trial Cases</button>
+    <button id="btn-adm" onclick="show('admin', 'btn-adm')">Admin</button>
 </nav>
 
 <div class="container">
 
-<!-- HOME -->
-<div id="home" class="section active">
-  <h2>Dashboard</h2>
-  <div class="box">System Access Granted</div>
-</div>
+    <div id="home" class="section">
+        <h2>System Dashboard</h2>
+        <div class="box">
+            <span style="color: #22c55e;">●</span> Internal Servers Operational<br>
+            <span style="color: var(--primary);">●</span> Database encryption: AES-256<br>
+            <span style="color: var(--accent);">●</span> Welcome, Administrator.
+        </div>
+    </div>
 
-<!-- AMBASSADORS -->
-<div id="ambassadors" class="section">
-  <h2>Ambassadors</h2>
-  <div class="box">Axronomore — Head Ambassador</div>
-</div>
+    <div id="ambassadors" class="section">
+        <h2>Diplomatic Corps</h2>
+        <div class="box">
+            <strong>Axronomore</strong><br>
+            <small style="color: var(--text-dim);">Head Ambassador</small>
+        </div>
+    </div>
 
-<!-- INVESTIGATORS -->
-<div id="investigators" class="section">
-  <h2>Investigators</h2>
+    <div id="investigators" class="section">
+        <h2>Bureau of Investigation</h2>
+        <div class="box">
+            <h3 style="margin-bottom: 5px;">Lead Personnel</h3>
+            marabo13 — Head Investigator<br>
+            Thommpt3 — Deputy Investigator
+        </div>
 
-  <div class="box">
-    marabo13 — Head Investigator<br>
-    Thommpt3 — Deputy Investigator
-  </div>
+        <div class="box">
+            <h3>Standard Operating Procedures</h3>
+            <ul style="margin: 0; padding-left: 20px;">
+                <li>Investigating cross-sector cases</li>
+                <li>Secure evidence gathering</li>
+                <li>Truth-based reporting only</li>
+            </ul>
+        </div>
 
-  <div class="box">
-    Duties:<br>
-    - Investigating cases<br>
-    - Gathering evidence<br>
-    - Mediating disputes<br>
-    - Presenting truthful reports<br>
-  </div>
+        <div class="box" style="text-align: center;">
+            <a href="https://docs.google.com/document/d/1NROOkeioZ5jtGFuzXBNy6eF8ansm8RsXKs3odT2GxoY/edit?usp=sharing" target="_blank">
+                📖 Open Investigator Handbook
+            </a>
+        </div>
+    </div>
 
-  <div class="box">
-    <a href="https://docs.google.com/document/d/1NROOkeioZ5jtGFuzXBNy6eF8ansm8RsXKs3odT2GxoY/edit?usp=sharing" target="_blank">
-      Investigator Handbook
-    </a>
-  </div>
-</div>
+    <div id="security" class="section">
+        <h2>Temple Security Force</h2>
+        <div class="box">
+            <strong>jaketstone34</strong><br>
+            <small style="color: var(--text-dim);">Chief Of Security</small>
+        </div>
+    </div>
 
-<!-- SECURITY -->
-<div id="security" class="section">
-  <h2>Temple Security Force</h2>
-  <div class="box">jaketstone34 — Chief Of Security</div>
-</div>
+    <div id="trials" class="section">
+        <h2>Active Trial Cases</h2>
+        <div id="trialList"></div>
 
-<!-- TRIALS -->
-<div id="trials" class="section">
-  <h2>Trial Cases</h2>
+        <div class="box">
+            <h3>Register New Case</h3>
+            <input id="trialName" placeholder="Case Designation (e.g. Case #102)">
+            <input id="trialLink" placeholder="Evidence Link (URL)">
+            <button class="action-btn" onclick="addTrial()">Log Case</button>
+        </div>
+    </div>
 
-  <div id="trialList"></div>
+    <div id="admin" class="section">
+        <h2>Administrative Control</h2>
+        <div class="box">
+            <h3>Personnel Registration</h3>
+            <input id="memberName" placeholder="Member Name">
+            <input id="memberRole" placeholder="Assigned Role">
+            <button class="action-btn" onclick="addMember()">Authorize Member</button>
+        </div>
 
-  <div class="box">
-    <h3>Add Trial</h3>
-    <input id="trialName" placeholder="Case name">
-    <input id="trialLink" placeholder="Document link">
-    <button onclick="addTrial()">Add</button>
-  </div>
-</div>
-
-<!-- ADMIN -->
-<div id="admin" class="section">
-  <h2>Admin Panel</h2>
-
-  <div class="box">
-    <h3>Add Member</h3>
-    <input id="memberName" placeholder="Name">
-    <input id="memberRole" placeholder="Role">
-    <button onclick="addMember()">Add</button>
-  </div>
-
-  <div id="members"></div>
-</div>
+        <div id="members"></div>
+    </div>
 
 </div>
 
 <script>
 function login() {
-  const u = document.getElementById('user').value;
-  const p = document.getElementById('pass').value;
+    const u = document.getElementById('user').value;
+    const p = document.getElementById('pass').value;
 
-  if (u === "admin" && p === "1234") {
-    document.getElementById('login').style.display = "none";
-    document.getElementById('nav').style.display = "flex";
-    show('home');
-  } else {
-    alert("Wrong login");
-  }
+    if (u === "admin" && p === "1234") {
+        document.getElementById('login').style.display = "none";
+        document.getElementById('nav').style.display = "flex";
+        show('home', 'btn-home');
+    } else {
+        alert("Credentials Rejected.");
+    }
 }
 
-function show(id) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+function show(id, btnId) {
+    // Hide all sections
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    // Deactivate all buttons
+    document.querySelectorAll('nav button').forEach(b => b.classList.remove('active-btn'));
+    
+    // Show selected
+    document.getElementById(id).classList.add('active');
+    document.getElementById(btnId).classList.add('active-btn');
 }
 
 /* MEMBERS */
 function addMember() {
-  let name = document.getElementById('memberName').value;
-  let role = document.getElementById('memberRole').value;
+    let name = document.getElementById('memberName').value;
+    let role = document.getElementById('memberRole').value;
+    if(!name || !role) return;
 
-  let members = JSON.parse(localStorage.getItem('members')) || [];
-  members.push({name, role});
-  localStorage.setItem('members', JSON.stringify(members));
+    let members = JSON.parse(localStorage.getItem('members')) || [];
+    members.push({name, role});
+    localStorage.setItem('members', JSON.stringify(members));
 
-  loadMembers();
+    document.getElementById('memberName').value = '';
+    document.getElementById('memberRole').value = '';
+    loadMembers();
 }
 
 function loadMembers() {
-  let members = JSON.parse(localStorage.getItem('members')) || [];
-  document.getElementById('members').innerHTML =
-    members.map(m => `<div class="box">${m.name} — ${m.role}</div>`).join('');
+    let members = JSON.parse(localStorage.getItem('members')) || [];
+    document.getElementById('members').innerHTML =
+        members.map(m => `
+            <div class="box member-item">
+                <span><strong>${m.name}</strong></span>
+                <span style="color: var(--primary); font-size: 0.8rem;">${m.role.toUpperCase()}</span>
+            </div>
+        `).join('');
 }
-
-loadMembers();
 
 /* TRIALS */
 function addTrial() {
-  let name = document.getElementById('trialName').value;
-  let link = document.getElementById('trialLink').value;
+    let name = document.getElementById('trialName').value;
+    let link = document.getElementById('trialLink').value;
+    if(!name || !link) return;
 
-  let trials = JSON.parse(localStorage.getItem('trials')) || [];
-  trials.push({name, link});
-  localStorage.setItem('trials', JSON.stringify(trials));
+    let trials = JSON.parse(localStorage.getItem('trials')) || [];
+    trials.push({name, link});
+    localStorage.setItem('trials', JSON.stringify(trials));
 
-  loadTrials();
+    document.getElementById('trialName').value = '';
+    document.getElementById('trialLink').value = '';
+    loadTrials();
 }
 
 function loadTrials() {
-  let trials = JSON.parse(localStorage.getItem('trials')) || [];
-  document.getElementById('trialList').innerHTML =
-    trials.map(t => `<div class="box"><a href="${t.link}" target="_blank">${t.name}</a></div>`).join('');
+    let trials = JSON.parse(localStorage.getItem('trials')) || [];
+    document.getElementById('trialList').innerHTML =
+        trials.map(t => `
+            <div class="box" style="display: flex; justify-content: space-between;">
+                <span>⚖️ ${t.name}</span>
+                <a href="${t.link}" target="_blank">View File</a>
+            </div>
+        `).join('');
 }
 
+// Init data
+loadMembers();
 loadTrials();
 </script>
 
