@@ -14,7 +14,7 @@
             --text-main: #f8fafc;
             --text-dim: #94a3b8;
             --danger: #ef4444;
-            --success: #22c55e;
+            --roblox-blue: #00A2FF;
         }
 
         body {
@@ -73,7 +73,6 @@
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* CARDS & INPUTS */
         .box {
             background: var(--card-bg);
             padding: 18px;
@@ -116,9 +115,15 @@
             float: right;
         }
 
-        .del-btn:hover { background: var(--danger); color: white; }
+        .roblox-link {
+            color: var(--roblox-blue);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
 
-        /* TAGS */
+        .roblox-link:hover { text-decoration: underline; }
+
         .tag {
             font-size: 0.7rem;
             padding: 2px 8px;
@@ -146,7 +151,7 @@
 </div>
 
 <nav id="nav">
-    <button id="btn-home" onclick="show('home', 'btn-home')">Dashboard</button>
+    <button id="btn-home" onclick="show('home', 'btn-home')">Home</button>
     <button id="btn-amb" onclick="show('ambassadors', 'btn-amb')">Ambassadors</button>
     <button id="btn-inv" onclick="show('investigators', 'btn-inv')">Investigators</button>
     <button id="btn-tri" onclick="show('trials', 'btn-tri')">Trial Cases</button>
@@ -155,24 +160,41 @@
 
 <div class="container">
     <div id="home" class="section">
-        <h2>System Status</h2>
-        <div class="box">Encrypted Link Established. No breaches detected.</div>
+        <h2>Dashboard</h2>
+        <div class="box">System Access Granted. All logs are being recorded for security purposes.</div>
     </div>
 
     <div id="ambassadors" class="section">
-        <h2>Diplomatic Personnel</h2>
-        <div class="box"><strong>Axronomore</strong> — Head Ambassador</div>
+        <h2>Ambassadors</h2>
+        <div class="box">
+            <strong>Axronomore</strong> — Head Ambassador 
+            <br><a href="https://www.roblox.com/users/profile?username=Axronomore" class="roblox-link" target="_blank">View Roblox Profile</a>
+        </div>
     </div>
 
     <div id="investigators" class="section">
-        <h2>Investigation Bureau</h2>
-        <div class="box">marabo13 (Head) | Thommpt3 (Deputy)</div>
-        <div class="box"><a href="#" style="color:var(--primary)">View Handbook.pdf</a></div>
+        <h2>Investigators</h2>
+        <div class="box">
+            <strong>marabo13</strong> (Head Investigator) | <a href="https://www.roblox.com/users/profile?username=marabo13" class="roblox-link" target="_blank">Profile</a><br>
+            <strong>Thommpt3</strong> (Deputy Investigator) | <a href="https://www.roblox.com/users/profile?username=Thommpt3" class="roblox-link" target="_blank">Profile</a>
+        </div>
+        
+        <div class="box">
+            <h3>Duties:</h3>
+            <ul style="margin: 0; padding-left: 20px; font-size: 0.95rem;">
+                <li>Investigating active cases</li>
+                <li>Gathering evidence for trials</li>
+                <li>Mediating local disputes</li>
+                <li>Presenting truthful reports</li>
+            </ul>
+        </div>
+
+        <div class="box" style="text-align:center"><a href="https://docs.google.com/document/d/1NROOkeioZ5jtGFuzXBNy6eF8ansm8RsXKs3odT2GxoY/edit?usp=sharing" target="_blank" style="color:var(--primary)">View Investigator Handbook</a></div>
     </div>
 
     <div id="trials" class="section">
-        <h2>Active Trial Cases</h2>
-        <input type="text" id="trialSearch" class="search-bar" placeholder="Search cases..." onkeyup="loadTrials()">
+        <h2>Trial Cases</h2>
+        <input type="text" id="trialSearch" class="search-bar" placeholder="Search case files..." onkeyup="loadTrials()">
         <div id="trialList"></div>
 
         <div class="box">
@@ -183,21 +205,22 @@
                 <option value="active">Active</option>
                 <option value="closed">Closed</option>
             </select>
-            <input id="trialLink" placeholder="Evidence Link" style="width: 94%">
-            <button class="action-btn" onclick="addTrial()">Add to Records</button>
+            <input id="trialLink" placeholder="Case File Link (URL)" style="width: 94%">
+            <button class="action-btn" onclick="addTrial()">File Record</button>
         </div>
     </div>
 
     <div id="admin" class="section">
-        <h2>Personnel Management</h2>
+        <h2>Admin Panel</h2>
         <input type="text" id="memberSearch" class="search-bar" placeholder="Search members..." onkeyup="loadMembers()">
         <div id="members"></div>
 
         <div class="box">
-            <h3>Authorize Member</h3>
-            <input id="memberName" placeholder="Name" style="width: 45%">
-            <input id="memberRole" placeholder="Role" style="width: 45%">
-            <button class="action-btn" onclick="addMember()">Save to Database</button>
+            <h3>Add Member</h3>
+            <input id="memberName" placeholder="Name" style="width: 30%">
+            <input id="memberRole" placeholder="Role" style="width: 30%">
+            <input id="memberRoblox" placeholder="Roblox Username" style="width: 30%">
+            <button class="action-btn" style="width: 100%; margin-top:10px" onclick="addMember()">Save to Database</button>
         </div>
     </div>
 </div>
@@ -208,7 +231,7 @@ function login() {
         document.getElementById('login').style.display = "none";
         document.getElementById('nav').style.display = "flex";
         show('home', 'btn-home');
-    } else { alert("Access Denied"); }
+    } else { alert("Wrong login information."); }
 }
 
 function show(id, btnId) {
@@ -222,10 +245,16 @@ function show(id, btnId) {
 function addMember() {
     let name = document.getElementById('memberName').value;
     let role = document.getElementById('memberRole').value;
+    let roblox = document.getElementById('memberRoblox').value;
     if(!name || !role) return;
+
     let members = JSON.parse(localStorage.getItem('members')) || [];
-    members.push({name, role, date: new Date().toLocaleDateString()});
+    members.push({name, role, roblox, date: new Date().toLocaleDateString()});
     localStorage.setItem('members', JSON.stringify(members));
+    
+    document.getElementById('memberName').value = "";
+    document.getElementById('memberRole').value = "";
+    document.getElementById('memberRoblox').value = "";
     loadMembers();
 }
 
@@ -237,8 +266,9 @@ function loadMembers() {
         .map((m, i) => `
             <div class="box">
                 <button class="del-btn" onclick="deleteItem('members', ${i}, loadMembers)">Delete</button>
-                <strong>${m.name}</strong> — ${m.role}
-                <div style="font-size:0.7rem; color:var(--text-dim)">Added: ${m.date}</div>
+                <strong>${m.name}</strong> — ${m.role} <br>
+                ${m.roblox ? `<a href="https://www.roblox.com/users/profile?username=${m.roblox}" class="roblox-link" target="_blank">Roblox Profile</a>` : ''}
+                <div style="font-size:0.7rem; color:var(--text-dim); margin-top:5px">Registered: ${m.date}</div>
             </div>
         `).join('');
 }
